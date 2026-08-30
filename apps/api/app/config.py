@@ -47,10 +47,26 @@ class Settings(BaseSettings):
             return [x.strip() for x in v.split(",") if x.strip()]
         return v
 
+    @field_validator("database_url", "database_url_unpooled", mode="before")
+    @classmethod
+    def sanitize_db_url(cls, v: str) -> str:
+        if not v:
+            return "postgresql+asyncpg://placeholder@localhost/vaidyacare"
+        v = v.strip().strip("\"'").strip()
+        # Ensure driver is asyncpg compatible
+        for prefix in ["postgresql+asyncpg://", "postgresql+psycopg2://", "postgresql://", "postgres://"]:
+            if v.startswith(prefix):
+                v = "postgresql+asyncpg://" + v[len(prefix):]
+                break
+        return v
+
     @classmethod
     def _clean_async_url(cls, url: str) -> str:
+        if not url:
+            return "postgresql+asyncpg://placeholder@localhost/vaidyacare"
         import urllib.parse
-        for prefix in ["postgresql+psycopg2://", "postgresql://", "postgres://"]:
+        url = url.strip().strip("\"'").strip()
+        for prefix in ["postgresql+asyncpg://", "postgresql+psycopg2://", "postgresql://", "postgres://"]:
             if url.startswith(prefix):
                 url = "postgresql+asyncpg://" + url[len(prefix):]
                 break
