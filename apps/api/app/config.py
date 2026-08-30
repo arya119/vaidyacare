@@ -28,7 +28,11 @@ class Settings(BaseSettings):
     whisper_model_size: str = "small"
 
     # ── CORS ───────────────────────────────────────────────────────────────────
-    cors_origins: Union[list[str], str] = ["http://localhost:3000"]
+    cors_origins: Union[list[str], str] = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://vaidyacare.vercel.app",
+    ]
 
     @field_validator("cors_origins", mode="before")
     @classmethod

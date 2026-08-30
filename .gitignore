@@ -36,3 +36,4 @@ npm-debug.log*
 # Alembic (keep versions/, ignore auto-generated)
 alembic/versions/__pycache__/
 .neon
+.vercel
