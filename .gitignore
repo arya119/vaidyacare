@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.uv/
+
+# Build outputs
+.next/
+dist/
+build/
+*.egg-info/
+
+# Env files — covers root and all subdirectories (apps/api/.env, apps/web/.env, etc.)
+**/.env
+**/.env.local
+**/.env.*.local
+.neon
+
+# Editors
+.DS_Store
+.idea/
+.vscode/settings.json
+*.swp
+
+# Python
+.python-version
+*.sqlite3
+
+# Logs
+*.log
+npm-debug.log*
+
+# Alembic (keep versions/, ignore auto-generated)
+alembic/versions/__pycache__/
+.neon
